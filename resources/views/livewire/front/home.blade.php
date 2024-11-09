@@ -19,6 +19,17 @@
                 <!-- Button Uploaded -->
                 <div data-dial-init class="absolute max-lg:fixed max-lg:z-50 bottom-6 end-6 group z-10">
                     <div id="speed-dial-menu-bottom-left" class="flex flex-col items-center hidden mb-4 space-y-2">
+                        <button wire:click="$set('modalAccess', true)" type="button" data-tooltip-target="tooltip-access-all" data-tooltip-placement="left"
+                            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+
+                            <span class="icon-[tdesign--user-unlocked]  text-2xl"></span>
+                            <span class="sr-only">Access All</span>
+                        </button>
+                        <div id="tooltip-access-all" role="tooltip"
+                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Access All
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                         <button type="button" data-tooltip-target="tooltip-share" data-tooltip-placement="left"
                             class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -33,6 +44,16 @@
                             Share
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
+                        <button   @if ($state == 'private') wire:click="download_zip()"  @else wire:click="$set('modalZip', true)" @endif  type="button" data-tooltip-target="tooltip-copy" data-tooltip-placement="left"
+                            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                            <span class="icon-[line-md--download-loop] text-2xl"></span>
+                            <span class="sr-only">Download All</span>
+                        </button>
+                        <div id="tooltip-copy" role="tooltip"
+                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Download All
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                         <button type="button" data-tooltip-target="tooltip-download" data-tooltip-placement="left" wire:click="$set('showUploadModal', true)"
                             class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                             <span class="icon-[ep--upload-filled]  text-2xl"></span>
@@ -41,16 +62,6 @@
                         <div id="tooltip-download" role="tooltip"
                             class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                             Upload
-                            <div class="tooltip-arrow" data-popper-arrow></div>
-                        </div>
-                        <button wire:click="download_zip()" type="button" data-tooltip-target="tooltip-copy" data-tooltip-placement="left"
-                            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                            <span class="icon-[line-md--download-loop] text-2xl"></span>
-                            <span class="sr-only">Download All</span>
-                        </button>
-                        <div id="tooltip-copy" role="tooltip"
-                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                            Download All
                             <div class="tooltip-arrow" data-popper-arrow></div>
                         </div>
                     </div>
@@ -67,7 +78,30 @@
                 </div>
                 <!-- END UPLOADED -->
                 <h1 class="text-6xl">Galery Foto</h1>
-                <livewire:front.gallery-foto :lazy="true" :id="$user->id"></livewire:gallery-foto>
+                @if ($state == 'private')
+                    <div class="flex gap-3 mb-4 mt-3 font-sans">
+                        <div wire:click="setAccess('all')" class="px-4 cursor-pointer  border border-blue-600 rounded-2xl text-lg hover:bg-blue-600 hover:text-white @if ($access == 'all')
+                        bg-blue-600 text-white
+                        @else
+                        bg-white
+                        @endif ">All</div>
+                        <div wire:click="setAccess('public')" class="px-4 cursor-pointer  border border-blue-600 rounded-2xl text-lg hover:bg-blue-600 hover:text-white @if ($access == 'public')
+                        bg-blue-600 text-white
+                        @else
+                        bg-white
+                        @endif ">Public</div>
+                        <div wire:click="setAccess('private')" class="px-4 cursor-pointer  border border-blue-600 rounded-2xl text-lg hover:bg-blue-600 hover:text-white @if ($access == 'private')
+                        bg-blue-600 text-white
+                        @else
+                        bg-white
+                        @endif ">Private</div>
+                    </div>
+                @endif
+                <!-- <x-placeholder.sceleton-gallery-foto wire:loading.remove.class="hidden" wire:loading.class="flex" wire:target="setAccess"  ></x-placeholder.sceleton-gallery-foto> -->
+
+                <div >
+                    <livewire:front.gallery-foto :lazy="true" :access="$access" :id="$user->id"   wire:key="gallery-foto-{{ $refreshKey }}"></livewire:gallery-foto>
+                </div>
             </div>
         </div>
 
@@ -133,6 +167,17 @@
             </x-slot>
 
             <x-slot name="content">
+
+            @if ($state == 'private')
+                <x-input.group for="Title" :inline="'true'" label="Upload Sebagai" :error="$errors->first('request.type')">
+                    <div wire:ignore>
+                        <x-input.select wire:model.live.debounce.300ms="request.type"  >
+                            <option value="public">Public</option>
+                            <option value="private">Private</option>
+                        </x-input.select>
+                    </div>
+                </x-input.group>
+            @endif
                 <x-input.group for="Title" :inline="'true'" label="Foto" :error="$errors->first('request.file')">
                     <div x-data="{ uploading: false, progress: 0 ,
                                     resetFileInput() {
@@ -170,6 +215,64 @@
 
             <x-slot name="footer">
                 <x-button.secondary wire:click="$set('showUploadModal', false)">Cancel</x-button.secondary>
+                <x-button.primary type="submit">Save</x-button.primary>
+            </x-slot>
+        </x-modal.dialog>
+    </form>
+    <form wire:submit.prevent="download_zip">
+        <x-modal.dialog :custom="__('text-black bg-white/90 rounded-lg mt-48 font-sans')" wire:model.defer="modalZip" backdrop='
+            <div class="absolute x-inset-0 inset-y-14 flex flex-col items-center mx-auto   w-full font-italiano text-white text-center">
+            <h1 class="text-5xl">{{ $user->name }}</h1>
+            <p class="mt-2 text-3xl">{{ \Carbon\Carbon::parse($user->tanggal_acara)->format("d . m . Y") }}</p>
+        </div>
+        '>
+
+            <x-slot name="title">
+                <div class="w-full flex justify-center mb-2">
+                    <img src="{{ asset('assets/1.png') }}" alt="logo" class='lg:w-36 max-lg:w-20 mr-4' />
+                </div>
+                <p class=" text-center mb-2   text-gray-900 dark:text-white   text-xs">
+                    Masukan Token untuk mendownload semua foto  <br>
+                </p>
+            </x-slot>
+
+            <x-slot name="content">
+                <x-input.errors for="Password" :error="$errors->first('download.token')">
+                    <x-input.text-line leadingAddOn='<span class="icon-[si--unlock-duotone]"></span>' :id="__('token_download')" wire:model="download.token" placeholder="Masukan token/kode" type="input" />
+                </x-input.errors>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-button.secondary wire:click="$set('modalZip', false)">Cancel</x-button.secondary>
+                <x-button.green type="submit">Download Zip</x-button.green>
+            </x-slot>
+        </x-modal.dialog>
+    </form>
+    <form wire:submit.prevent="accessAll">
+        <x-modal.dialog :custom="__('text-black bg-white/90 rounded-lg mt-48 font-sans')" wire:model.defer="modalAccess" backdrop='
+            <div class="absolute x-inset-0 inset-y-14 flex flex-col items-center mx-auto   w-full font-italiano text-white text-center">
+            <h1 class="text-5xl">{{ $user->name }}</h1>
+            <p class="mt-2 text-3xl">{{ \Carbon\Carbon::parse($user->tanggal_acara)->format("d . m . Y") }}</p>
+        </div>
+        '>
+
+            <x-slot name="title">
+                <div class="w-full flex justify-center mb-2">
+                    <img src="{{ asset('assets/1.png') }}" alt="logo" class='lg:w-36 max-lg:w-20 mr-4' />
+                </div>
+                <p class=" text-center mb-2   text-gray-900 dark:text-white   text-xs">
+                    Masukan Token untuk dapat access semua foto private & public <br>
+                </p>
+            </x-slot>
+
+            <x-slot name="content">
+                <x-input.errors for="token" :error="$errors->first('download.token')">
+                    <x-input.text-line leadingAddOn='<span class="icon-[si--unlock-duotone]"></span>' :id="__('token_access')" wire:model="download.token" placeholder="Masukan token/kode" type="input" />
+                </x-input.errors>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-button.secondary wire:click="$set('modalZip', false)">Cancel</x-button.secondary>
                 <x-button.primary type="submit">Save</x-button.primary>
             </x-slot>
         </x-modal.dialog>
