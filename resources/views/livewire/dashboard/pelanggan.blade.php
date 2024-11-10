@@ -40,7 +40,8 @@
                         <x-table.heading class="pr-0 w-8">No.</x-table.heading>
                         <x-table.heading>.::.</x-table.heading>
                         <x-table.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Nama Pelanggan</x-table.heading>
-                        <x-table.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Qr Code</x-table.heading>
+                        {{--  <x-table.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">Qr Code</x-table.heading> --}}
+                        <x-table.heading>Token</x-table.heading>
                         <x-table.heading>Event</x-table.heading>
                         <x-table.heading>
                             <div class=" w-20"> Nama Paket</div>
@@ -90,8 +91,13 @@
                                 <span class="text-cool-gray-900 font-medium">{{ $values->name }} </span>
                             </x-table.cell>
                             <x-table.cell>
+                                <span class="text-cool-gray-900 font-medium">{{ $values->token }} </span>
+                            </x-table.cell>
+                            {{--
+                            <x-table.cell>
                                 <span class="text-cool-gray-900 font-medium">   <img src="{{ route('download.qr', ['url'=>$values->username]) }}" alt=""> </span>
                             </x-table.cell>
+                            --}}
                             <x-table.cell>
                                 <span class="text-cool-gray-900 font-medium">{{ $values->event->title }} </span>
                             </x-table.cell>

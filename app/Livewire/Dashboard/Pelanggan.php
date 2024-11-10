@@ -15,6 +15,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Pelanggan extends Component
 {
@@ -163,6 +164,7 @@ class Pelanggan extends Component
             $this->request['user_id'] = auth()->user()->id;
 
             if (!$this->_data->id) {
+                $this->request['token'] = 'DKR-' . Str::random(5);
                 $this->_data->create($this->request);
             } else {
                 // Update the user

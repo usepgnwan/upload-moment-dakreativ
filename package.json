@@ -6,11 +6,13 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@iconify-json/arcticons": "^1.2.4",
         "@iconify-json/basil": "^1.2.1",
         "@iconify-json/bx": "^1.2.1",
         "@iconify-json/carbon": "^1.2.4",
         "@iconify-json/eos-icons": "^1.2.1",
         "@iconify-json/ep": "^1.2.1",
+        "@iconify-json/fa6-solid": "^1.2.1",
         "@iconify-json/fontisto": "^1.2.0",
         "@iconify-json/hugeicons": "^1.2.1",
         "@iconify-json/ion": "^1.2.1",
