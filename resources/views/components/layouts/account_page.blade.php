@@ -29,11 +29,14 @@
     <link href=" https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.css " rel="stylesheet">
 
     <!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
-    <script src="{{ asset('/vendor/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{ asset('/vendor/tinymce_mathjax/plugin.js')}}"></script>
+    {{-- <script src="{{ asset('/vendor/tinymce/tinymce.min.js')}}"></script>
+    <script src="{{ asset('/vendor/tinymce_mathjax/plugin.js')}}"></script> --}}
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
     <x-notification />
+    @if(auth()->check())
+    <livewire:partials.change-password></livewire:partials.change-password>
+    @endif
     @vite(['resources/js/app.js'])
     @livewireScripts
     @stack('scripts')

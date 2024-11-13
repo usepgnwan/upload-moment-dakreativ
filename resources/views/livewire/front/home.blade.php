@@ -112,7 +112,7 @@
 
 
 
-    <form wire:submit.prevent="save">
+    <form wire:submit.prevent="save" class="font-serif ">
         <x-modal.dialog :custom="__('text-black bg-white/90 rounded-lg mt-48')" wire:model.defer="modalMessages" backdrop='
             <div class="absolute x-inset-0 inset-y-14 flex flex-col items-center mx-auto   w-full font-italiano text-white text-center">
             <h1 class="text-5xl">{{ $user->name }}</h1>
@@ -129,7 +129,7 @@
                     <img src="{{ asset('assets/1.png') }}" alt="logo" class='lg:w-36 max-lg:w-20 mr-4' />
                 </div>
 
-                <p class=" text-center mb-2   text-gray-900 dark:text-white  font-serif text-xs">
+                <p class=" text-center mb-2   text-gray-900 dark:text-white  text-xs">
                     Terima kasih sudah hadir <br>
                     Ucapkan Selamat untuk kedua mempelai
                 </p>
@@ -202,7 +202,7 @@
                             @endif
                         </div>
                         @endif
-                        <input type="file" name="file" id="file" wire:model="request.file" accept="image/*">
+                        <input type="file" name="file" id="file" wire:model="request.file"  accept="image/*;capture=camera">
                         <p class="text-xs text-gray-400 mt-2">PNG, JPG SVG and GIF are Allowed.</p>
                         <div x-show="uploading">
                             <div class="w-full h-4 bg-slate-100 rounded-lg shadow-inner mt-3">
@@ -272,7 +272,7 @@
             </x-slot>
 
             <x-slot name="footer">
-                <x-button.secondary wire:click="$set('modalZip', false)">Cancel</x-button.secondary>
+                <x-button.secondary wire:click="$set('modalAccess', false)">Cancel</x-button.secondary>
                 <x-button.primary type="submit">Save</x-button.primary>
             </x-slot>
         </x-modal.dialog>
